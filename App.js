@@ -26,6 +26,7 @@ const App = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           <Header />
+          <Text>اهلا بالعالم</Text>
 
           <View>
             <CalendarStrip
