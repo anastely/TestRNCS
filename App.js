@@ -1,70 +1,71 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
-  Text,
   StatusBar,
+  Text,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
+import CalendarStrip from 'react-native-calendar-strip';
 
-const App: () => React$Node = () => {
+const App = () => {
+  const [dateName, setDateName] = React.useState('');
+  // console.log('I18nManager', I18nManager.isRTL);
+  const onDateSelected = (date) => {
+    setDateName(date.format('D MMMM YYYY'));
+  };
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+
+          <View>
+            <CalendarStrip
+              scrollable
+              useNativeDriver
+              onDateSelected={onDateSelected}
+              selectedDate={new Date()}
+              style={{
+                height: 200,
+                paddingTop: 50,
+                paddingBottom: 10,
+              }}
+              calendarColor={'#3343CE'}
+              calendarHeaderStyle={{
+                color: '#fff',
+                fontSize: 22,
+              }}
+              dateNumberStyle={{fontSize: 17, color: '#fff'}}
+              dateNameStyle={{fontSize: 13, color: '#fff'}}
+              iconContainer={{flex: 0.1}}
+              innerStyle={{
+                flexGrow: 1,
+                marginTop: 20,
+              }}
+              updateWeek={true}
+              highlightDateNameStyle={{color: '#000'}}
+              highlightDateNumberStyle={{color: '#000'}}
+              daySelectionAnimation={{
+                type: 'background',
+                highlightColor: '#fff',
+              }}
+            />
+          </View>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 50,
+            }}>
+            <Text> DateSelected: {dateName}</Text>
           </View>
         </ScrollView>
       </SafeAreaView>
